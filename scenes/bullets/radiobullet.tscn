@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bf5jnbtjdop7x"]
+
+[ext_resource type="Script" uid="uid://nf3tc32x05a8" path="res://scripts/radiobullet.gd" id="1_ydply"]
+[ext_resource type="Texture2D" uid="uid://dagm8eoldjdo2" path="res://textures/weapontextures/bullet_32x32.png" id="2_7evsu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eeueq"]
+radius = 3.0
+
+[node name="radiobullet" type="Area2D"]
+z_index = -10
+scale = Vector2(2, 2)
+script = ExtResource("1_ydply")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+rotation = 0.00759984
+shape = SubResource("CircleShape2D_eeueq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.957047, 0.458404, 0.367854, 1)
+texture_filter = 3
+position = Vector2(-1, 1)
+texture = ExtResource("2_7evsu")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

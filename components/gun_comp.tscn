@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpp7xtxiyao65"]
+
+[ext_resource type="Script" uid="uid://cwb3byph02yo5" path="res://scripts/gun_comp.gd" id="1_dqf4y"]
+
+[node name="GunComp" type="Node2D"]
+script = ExtResource("1_dqf4y")
