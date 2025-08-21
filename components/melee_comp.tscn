@@ -1,14 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://wx6e4ys7p4po"]
+[gd_scene load_steps=2 format=3 uid="uid://wx6e4ys7p4po"]
 
 [ext_resource type="Script" uid="uid://bt16kkgdq1ydp" path="res://scripts/melee_comp.gd" id="1_eoveu"]
-[ext_resource type="Texture2D" uid="uid://cuayx4usndm80" path="res://textures/weapontextures/gun_32x32_v1.png" id="2_0xnwe"]
 
 [node name="MeleeComp" type="Node2D"]
 script = ExtResource("1_eoveu")
-
-[node name="billyclub" type="Sprite2D" parent="."]
-texture_filter = 3
-position = Vector2(-1, 5)
-rotation = 0.214607
-scale = Vector2(1.12005, 1.12514)
-texture = ExtResource("2_0xnwe")

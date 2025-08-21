@@ -22,6 +22,7 @@ func shoot():
 	bullet.global_position = self.global_position
 	$/root/main.add_child(bullet)
 	bullet.bullet_direction = (get_global_mouse_position() - global_position).normalized()
+	bullet.look_at(get_global_mouse_position())
 	await get_tree().create_timer(Autoload.shoot_wait_time).timeout
 	can_shoot = true
 

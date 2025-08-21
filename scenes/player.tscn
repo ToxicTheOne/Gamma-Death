@@ -192,6 +192,7 @@ libraries = {
 [node name="body" type="Node2D" parent="."]
 
 [node name="GunComp" parent="body" node_paths=PackedStringArray("shapecast") instance=ExtResource("5_smehm")]
+position = Vector2(0, -1.5)
 shapecast = NodePath("ShapeCast2D")
 player = true
 

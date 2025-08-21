@@ -20,6 +20,7 @@ func _physics_process(delta: float) -> void:
 	global_position += bullet_direction * bullet_speed 
 	global_position = floor(global_position)
 
+
 # If it collides with an enemy, take away damage and destroys
 
 func _on_area_entered(area: Area2D) -> void:
