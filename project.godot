@@ -17,7 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Autoload="*res://scripts/autoload.gd"
+Autoload="*res://scripts/autoloads/autoload.gd"
+Labelmanager="*res://scripts/autoloads/labelmanager.gd"
 
 [display]
 
@@ -30,6 +31,7 @@ window/stretch/mode="viewport"
 
 enemy=""
 player=""
+block=""
 
 [input]
 

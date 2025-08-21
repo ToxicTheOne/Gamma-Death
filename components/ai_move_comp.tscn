@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bo4bix24bdyx0"]
+
+[ext_resource type="Script" uid="uid://dub5c6f1s2e0" path="res://scripts/ai_move_comp.gd" id="1_qyke7"]
+
+[node name="AIMoveComp" type="NavigationAgent2D" node_paths=PackedStringArray("recalc_timer")]
+avoidance_enabled = true
+debug_enabled = true
+script = ExtResource("1_qyke7")
+recalc_timer = NodePath("recalt_timer")
+
+[node name="recalt_timer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true

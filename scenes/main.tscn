@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=4 uid="uid://b0doth0ojesqw"]
+[gd_scene load_steps=13 format=4 uid="uid://b0doth0ojesqw"]
 
 [ext_resource type="Texture2D" uid="uid://kr7k512yvdin" path="res://textures/worldtextures/glass_tiles_v2.png" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://bkp2jcl5666yk" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://bsugumlkf1mlg" path="res://scripts/camera_2d.gd" id="2_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://ccd5kofndywb0" path="res://textures/worldtextures/tileset_3.png" id="2_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://fptl0eu1e1ts" path="res://scenes/enemymelee.tscn" id="5_tbgi4"]
+[ext_resource type="Script" uid="uid://b6s2v17tbpxtr" path="res://scripts/autoloads/autoload.gd" id="6_tefeu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tefeu"]
 texture = ExtResource("1_jyhfs")
@@ -47,10 +49,19 @@ texture = ExtResource("2_tbgi4")
 sources/0 = SubResource("TileSetAtlasSource_tefeu")
 sources/1 = SubResource("TileSetAtlasSource_o6xl0")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tefeu"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_85g3d"]
 size = Vector2(184.5, 187.25)
 
-[node name="main" type="Node2D"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_tbgi4"]
+vertices = PackedVector2Array(1817.11, 99, 1842.96, -246, 1838.03, 1250, 1313, 677.891, 1252.94, 693.977, 921.109, 671, 905.023, 610.938, 1801.02, 159.062, 1801.02, 38.9375, 277.5, 1022, 1252.94, 902.023, 1313, 918.109, 258.148, 1094.26, 1417.02, 858.062, 1433.11, 798, 1757.06, 203.023, 1417.02, 737.938, 1697, 219.109, 1208.98, 737.938, 1208.98, 858.062, 1757.06, -5.02344, 1373.06, 693.977, 216.109, 224, 1247, 220.109, 200.023, 284.062, 861.062, 775.023, 1192.89, 798, 258.148, 949.742, 801, 791.109, 905.023, 731.062, -175, -124.703, -171.289, -247.992, 1697, -21.1094, 1636.94, -5.02344, 1247, -20.1094, 1373.06, 902.023, 1367.11, 100, 1351.02, 39.9375, 1576.89, 99, 1592.98, 159.062, 1592.98, 38.9375, 1307.06, -4.02344, 1351.02, 160.062, 1636.94, 203.023, 156.062, 328.023, 861.062, 566.977, 801, 550.891, 740.938, 775.023, 696.977, 731.062, 680.891, 671, 205.258, 896.852, -178.969, 1250, 133, 1166.5, 696.977, 610.938, 133, 877.5, 96, 344.109, 1307.06, 204.023, 740.938, 566.977, 60.7422, 896.852, 35.9375, 328.023, 7.85156, 949.742, -8.02344, 284.062, 205.258, 1147.15, -24.1094, 224, -11.5, 1022, 1186.94, -4.02344, 1142.98, 39.9375, 1126.89, 100, 1142.98, 160.062, 1186.94, 204.023, 156.062, 119.977, 96, 103.891, 200.023, 163.938, 35.9375, 119.977, -8.02344, 163.938, 7.85156, 1094.26, 60.7422, 1147.15)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5, 6), PackedInt32Array(7, 0, 2), PackedInt32Array(1, 0, 8), PackedInt32Array(9, 10, 11, 12), PackedInt32Array(7, 2, 13, 14, 15), PackedInt32Array(15, 14, 16, 17), PackedInt32Array(5, 4, 18), PackedInt32Array(19, 10, 9), PackedInt32Array(1, 8, 20), PackedInt32Array(17, 16, 21), PackedInt32Array(22, 23, 17, 21, 3, 24), PackedInt32Array(25, 26, 19, 9, 27, 28), PackedInt32Array(5, 18, 26, 29), PackedInt32Array(30, 31, 1, 32, 33, 34), PackedInt32Array(35, 13, 2), PackedInt32Array(1, 20, 32), PackedInt32Array(36, 37, 38, 39), PackedInt32Array(40, 38, 37, 41), PackedInt32Array(42, 36, 39, 43), PackedInt32Array(44, 24, 3, 45, 46), PackedInt32Array(25, 29, 26), PackedInt32Array(47, 28, 27), PackedInt32Array(48, 47, 27), PackedInt32Array(49, 48, 27, 50), PackedInt32Array(11, 35, 2), PackedInt32Array(11, 2, 51, 52), PackedInt32Array(44, 53, 49, 50, 54, 55), PackedInt32Array(33, 40, 41, 34), PackedInt32Array(56, 42, 43, 17), PackedInt32Array(3, 6, 45), PackedInt32Array(44, 46, 57), PackedInt32Array(44, 57, 53), PackedInt32Array(55, 54, 58, 59), PackedInt32Array(59, 58, 60, 61), PackedInt32Array(62, 12, 11), PackedInt32Array(63, 61, 60, 64, 51, 30), PackedInt32Array(30, 34, 65), PackedInt32Array(30, 65, 66), PackedInt32Array(30, 66, 67), PackedInt32Array(30, 67, 68), PackedInt32Array(30, 68, 69, 70, 71), PackedInt32Array(23, 56, 17), PackedInt32Array(69, 23, 22, 72), PackedInt32Array(69, 72, 70), PackedInt32Array(30, 71, 73), PackedInt32Array(30, 73, 74), PackedInt32Array(30, 74, 63), PackedInt32Array(51, 64, 75), PackedInt32Array(51, 75, 76), PackedInt32Array(51, 76, 52), PackedInt32Array(11, 52, 62)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-185, -125, -181, -258, 1853, -256, 1848, 1260, -189, 1260)])
+
+[node name="main" type="Node2D" node_paths=PackedStringArray("player")]
+script = ExtResource("6_tefeu")
+player = NodePath("player")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -30
@@ -60,7 +71,7 @@ tile_map_data = PackedByteArray("AAAJAAYAAQABAAEAAAAIAAYAAQABAAEAAAAIAAUAAQABAAE
 tile_set = SubResource("TileSet_tipki")
 
 [node name="player" parent="." instance=ExtResource("1_o5qli")]
-position = Vector2(637, 371)
+position = Vector2(681, 306)
 rotation = -0.859191
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player_node")]
@@ -68,28 +79,64 @@ position = Vector2(636, 165)
 script = ExtResource("2_0wfyh")
 player_node = NodePath("../player")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(41, 949)
+scale = Vector2(1.0083, 0.964314)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(90, 73)
+scale = Vector2(12.6816, 12.3094)
+shape = SubResource("RectangleShape2D_tefeu")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["block"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" groups=["block"]]
 position = Vector2(98, 223)
 shape = SubResource("RectangleShape2D_85g3d")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" groups=["block"]]
 position = Vector2(1309, 798)
 shape = SubResource("RectangleShape2D_85g3d")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" groups=["block"]]
 position = Vector2(800, 670.375)
 shape = SubResource("RectangleShape2D_85g3d")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" groups=["block"]]
 position = Vector2(1244, 99)
 shape = SubResource("RectangleShape2D_85g3d")
 
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D" groups=["block"]]
 position = Vector2(1697, 102)
 shape = SubResource("RectangleShape2D_85g3d")
 
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(128, 1025)
-shape = SubResource("RectangleShape2D_85g3d")
+[node name="enemymelee" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_tbgi4")]
+position = Vector2(402, 239)
+player = NodePath("../player")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_tbgi4")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="NavigationRegion2D"]
+position = Vector2(96, 224)
+radius = 201.2
+
+[node name="NavigationObstacle2D2" type="NavigationObstacle2D" parent="NavigationRegion2D"]
+position = Vector2(801, 671)
+radius = 201.2
+
+[node name="NavigationObstacle2D3" type="NavigationObstacle2D" parent="NavigationRegion2D"]
+position = Vector2(1247, 100)
+radius = 201.2
+
+[node name="NavigationObstacle2D4" type="NavigationObstacle2D" parent="NavigationRegion2D"]
+position = Vector2(1697, 99)
+radius = 201.2
+
+[node name="NavigationObstacle2D5" type="NavigationObstacle2D" parent="NavigationRegion2D"]
+position = Vector2(1313, 798)
+radius = 201.2
+
+[node name="NavigationObstacle2D6" type="NavigationObstacle2D" parent="NavigationRegion2D"]
+position = Vector2(133, 1022)
+radius = 201.2

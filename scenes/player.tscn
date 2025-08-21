@@ -219,4 +219,4 @@ shape = SubResource("RectangleShape2D_smehm")
 [node name="DashComp" type="Node2D" parent="."]
 script = ExtResource("7_fjrip")
 
-[connection signal="body_entered" from="HitboxComp" to="HitboxComp" method="_on_body_entered"]
+[connection signal="area_entered" from="HitboxComp" to="HitboxComp" method="_on_area_entered"]

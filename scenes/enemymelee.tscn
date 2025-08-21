@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://fptl0eu1e1ts"]
+
+[ext_resource type="Script" uid="uid://b184bi6f4yj5d" path="res://scripts/enemymelee.gd" id="1_0nijp"]
+[ext_resource type="PackedScene" uid="uid://icvsnsk4d22m" path="res://components/health_comp.tscn" id="1_ral38"]
+[ext_resource type="PackedScene" uid="uid://dbfryeqvscnb1" path="res://components/hitbox_comp.tscn" id="2_nqhru"]
+[ext_resource type="Texture2D" uid="uid://c5aynv4x4keuj" path="res://textures/enemytextures/cop_body.png" id="3_g10tg"]
+[ext_resource type="Texture2D" uid="uid://b3d5pu1i0odlp" path="res://textures/enemytextures/cop_head.png" id="4_0nijp"]
+[ext_resource type="PackedScene" uid="uid://wx6e4ys7p4po" path="res://components/melee_comp.tscn" id="4_nqhru"]
+[ext_resource type="PackedScene" uid="uid://bo4bix24bdyx0" path="res://components/ai_move_comp.tscn" id="7_0nijp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nqhru"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ral38"]
+radius = 11.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g10tg"]
+size = Vector2(6.55472, 16.9008)
+
+[node name="enemymelee" type="CharacterBody2D"]
+scale = Vector2(4, 4)
+script = ExtResource("1_0nijp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_nqhru")
+
+[node name="health_comp" parent="." instance=ExtResource("1_ral38")]
+
+[node name="HitboxComp" parent="." groups=["enemy"] instance=ExtResource("2_nqhru")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComp"]
+shape = SubResource("CircleShape2D_ral38")
+debug_color = Color(0.928384, 3.18626e-05, 0.664872, 0.42)
+
+[node name="body" type="Node2D" parent="."]
+
+[node name="body" type="Sprite2D" parent="body"]
+texture_filter = 3
+rotation = -0.734107
+texture = ExtResource("3_g10tg")
+
+[node name="head" type="Sprite2D" parent="body"]
+texture_filter = 3
+rotation = -0.734107
+texture = ExtResource("4_0nijp")
+
+[node name="MeleeComp" parent="." node_paths=PackedStringArray("hitboxbilly", "animationplayer") instance=ExtResource("4_nqhru")]
+hitboxbilly = NodePath("Area2D")
+animationplayer = NodePath("../AnimationPlayer")
+
+[node name="Area2D" type="Area2D" parent="MeleeComp"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeComp/Area2D"]
+position = Vector2(0.25, 10)
+rotation = -0.57173
+shape = SubResource("RectangleShape2D_g10tg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AIMoveComp" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("7_0nijp")]
+max_speed = 500000.0
+parent = NodePath("..")
+
+[connection signal="area_entered" from="HitboxComp" to="HitboxComp" method="_on_area_entered"]
