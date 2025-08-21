@@ -4,12 +4,15 @@ extends Node
 @export var player : bool
 @export var max_health : int = 100
 @onready var current_health : int = max_health
-
+@export var parent : CharacterBody2D
 
 func _process(delta: float) -> void:
 	if player == true:
 		max_health = Autoload.player_max_health
 		current_health = Autoload.player_curremt_health
+	elif player == false:
+		current_health = parent.enemyhealth
+		max_health = parent.max_enemy_health
 	check_for_death()
 
 
@@ -26,5 +29,6 @@ func gain_health(amount):
 
 func check_for_death():
 	if player == false and current_health <= 0:
-		# play death animation
-		queue_free()
+		parent.die()
+
+	

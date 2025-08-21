@@ -3,8 +3,9 @@ extends NavigationAgent2D
 @onready var movement_speed : int = 9000
 @onready var movement_target 
 @export var recalc_timer : Timer
-@export var path_desired_dist : float = 4
-@export var target_desired_dist : float = 4
+@export var path_desired_dist : float = 10
+@export var target_desired_dist : float = 10
+
 @export var parent : CharacterBody2D
 
 @onready var enemyinfos = Autoload.enemy_info.values()

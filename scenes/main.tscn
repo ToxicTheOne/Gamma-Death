@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://b0doth0ojesqw"]
+[gd_scene load_steps=21 format=4 uid="uid://b0doth0ojesqw"]
 
 [ext_resource type="Texture2D" uid="uid://kr7k512yvdin" path="res://textures/worldtextures/glass_tiles_v2.png" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://bkp2jcl5666yk" path="res://scenes/player.tscn" id="1_o5qli"]
@@ -72,23 +72,6 @@ sources/0 = SubResource("TileSetAtlasSource_tefeu")
 sources/1 = SubResource("TileSetAtlasSource_o6xl0")
 sources/2 = SubResource("TileSetAtlasSource_trceg")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ya4ey"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eb6dy"]
-bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trceg"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8y0u"]
-bg_color = Color(1, 0.027451, 0.0784314, 1)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_85g3d"]
 size = Vector2(124, 62.6285)
 
@@ -145,7 +128,6 @@ tile_set = SubResource("TileSet_tipki")
 
 [node name="player" parent="." instance=ExtResource("1_o5qli")]
 position = Vector2(681, 306)
-rotation = -0.859191
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player_node")]
 position = Vector2(636, 165)
@@ -167,30 +149,6 @@ theme_override_fonts/normal_font = ExtResource("7_tipki")
 theme_override_font_sizes/normal_font_size = 250
 text = "WAVE 0
 "
-
-[node name="dashbar" type="ProgressBar" parent="Camera2D"]
-z_index = 50
-offset_left = -620.0
-offset_top = 319.0
-offset_right = -420.0
-offset_bottom = 339.0
-theme_override_styles/background = SubResource("StyleBoxFlat_ya4ey")
-theme_override_styles/fill = SubResource("StyleBoxFlat_eb6dy")
-value = 50.0
-show_percentage = false
-
-[node name="healthbar" type="ProgressBar" parent="Camera2D"]
-z_index = 50
-offset_left = -620.0
-offset_top = 291.0
-offset_right = -220.0
-offset_bottom = 1591.0
-scale = Vector2(1, 0.02)
-theme_override_styles/background = SubResource("StyleBoxFlat_trceg")
-theme_override_styles/fill = SubResource("StyleBoxFlat_a8y0u")
-value = 81.15
-allow_greater = true
-show_percentage = false
 
 [node name="box" type="StaticBody2D" parent="." groups=["block"]]
 

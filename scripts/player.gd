@@ -5,6 +5,12 @@ var speed : int
 var is_walking : bool
 @onready var dash_component = $DashComp
 
+@onready var healthbar: ProgressBar = $"healthbar"
+
+
+
+func _ready():
+	healthbar.initialize_health(Autoload.player_max_health)
 
 func _physics_process(delta: float) -> void:
 	
@@ -24,6 +30,9 @@ func _physics_process(delta: float) -> void:
 	
 	walk_animations()
 	initiate_dash()
+	
+	
+	
 	
 	move_and_slide()
 
@@ -50,7 +59,7 @@ func walk_animations():
 		$legs/AnimationPlayer.play("walk")
 	else:
 		$legs/AnimationPlayer.play("RESET")
-	
+
 
 
 func initiate_dash():

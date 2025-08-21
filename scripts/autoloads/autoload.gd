@@ -5,7 +5,7 @@ extends Node2D
 
 # Player stats
 @onready var player_max_health : float = 100
-@onready var player_curremt_health : float
+@onready var player_curremt_health : float = player_max_health 
 @onready var player_speed : int = 300
 @onready var player_dash_speed : int = 400.0
 @onready var drive : int

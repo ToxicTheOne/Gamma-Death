@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://fptl0eu1e1ts"]
+[gd_scene load_steps=15 format=3 uid="uid://fptl0eu1e1ts"]
 
 [ext_resource type="Script" uid="uid://b184bi6f4yj5d" path="res://scripts/enemymelee.gd" id="1_0nijp"]
 [ext_resource type="PackedScene" uid="uid://icvsnsk4d22m" path="res://components/health_comp.tscn" id="1_ral38"]
@@ -17,34 +17,6 @@ radius = 11.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g10tg"]
 size = Vector2(6.55472, 21.1285)
-
-[sub_resource type="Animation" id="Animation_ss18l"]
-resource_name = "swing"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeleeComp:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.433333),
-"transitions": PackedFloat32Array(1, 4.59479, 0.203063, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0.75, 1.5), Vector2(-1.25, 0.749999), Vector2(1.25, 5.5)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MeleeComp:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.433333),
-"transitions": PackedFloat32Array(1, 0.25, 1),
-"update": 0,
-"values": [0.0, -1.51669, -2.60054]
-}
 
 [sub_resource type="Animation" id="Animation_p5puy"]
 length = 0.001
@@ -75,12 +47,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o423u"]
 _data = {
-&"RESET": SubResource("Animation_p5puy"),
-&"swing": SubResource("Animation_ss18l")
+&"RESET": SubResource("Animation_p5puy")
 }
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ss18l"]
-radius = 8.64402
 
 [node name="enemymelee" type="CharacterBody2D"]
 scale = Vector2(4, 4)
@@ -90,7 +58,8 @@ script = ExtResource("1_0nijp")
 z_index = -5
 shape = SubResource("CircleShape2D_nqhru")
 
-[node name="health_comp" parent="." instance=ExtResource("1_ral38")]
+[node name="health_comp" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("1_ral38")]
+parent = NodePath("..")
 
 [node name="HitboxComp" parent="." node_paths=PackedStringArray("other_collision", "health_bar_comp") groups=["enemy"] instance=ExtResource("2_nqhru")]
 other_collision = NodePath("../CollisionShape2D")
@@ -121,15 +90,17 @@ animationplayer = NodePath("../AnimationPlayer")
 [node name="billyclub" type="Sprite2D" parent="MeleeComp"]
 z_index = -1
 texture_filter = 3
-position = Vector2(1.5, 11)
-rotation = 2.50301
+position = Vector2(8.34936, 3.5)
+rotation = 1.43035
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("7_ws5fo")
 
 [node name="Area2D" type="Area2D" parent="MeleeComp"]
+position = Vector2(6.84936, -7.5)
+rotation = -1.07267
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeComp/Area2D"]
-position = Vector2(1.39377, 11.7777)
+position = Vector2(-9.1944, 7.16417)
 rotation = -0.615572
 shape = SubResource("RectangleShape2D_g10tg")
 
@@ -140,19 +111,11 @@ libraries = {
 
 [node name="AIMoveComp" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("7_0nijp")]
 max_speed = 500000.0
-path_desired_dist = 10.0
-target_desired_dist = 10.0
+path_desired_dist = 100.0
+target_desired_dist = 100.0
 parent = NodePath("..")
 
 [node name="HealthBarComp" parent="." instance=ExtResource("9_ss18l")]
 
-[node name="detectionarea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="detectionarea"]
-position = Vector2(17.25, 0.25)
-scale = Vector2(2.37158, 1.03162)
-shape = SubResource("CapsuleShape2D_ss18l")
-debug_color = Color(0.992157, 0.0901961, 0, 0.27451)
-
 [connection signal="area_entered" from="HitboxComp" to="HitboxComp" method="_on_area_entered"]
-[connection signal="area_entered" from="detectionarea" to="." method="_on_detectionarea_area_entered"]
+[connection signal="area_entered" from="MeleeComp/Area2D" to="MeleeComp" method="_on_area_2d_area_entered"]

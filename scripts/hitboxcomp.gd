@@ -6,7 +6,12 @@ extends Area2D
 @onready var current_health : int
 @export var other_collision : CollisionShape2D
 @export var health_bar_comp: ProgressBar 
+@export var playerhealthbar: ProgressBar 
 
+
+
+func _ready() -> void:
+	pass
 
 
 func disable(disabled : bool):
@@ -16,13 +21,18 @@ func disable(disabled : bool):
 		other_collision.disabled = true
 
 func take_damage(damage):
-	var parent = get_parent()
-	current_health = parent.enemyhealth
-	current_health -= damage
-	Labelmanager.display_damage(damage, parent.position)
-	parent.enemyhealth = current_health 
+	if player == false:
+		var parent = get_parent()
+		current_health = parent.enemyhealth
+		current_health -= damage
+		Labelmanager.display_damage(damage, parent.position)
+		parent.enemyhealth = current_health 
+		health_bar_comp.health = current_health
 	
-	health_bar_comp.health = current_health
-
+	elif player:
+		print("AHHH I TOOK DAMAGE - player")
+		Autoload.player_curremt_health -= damage
+		playerhealthbar.health = Autoload.player_curremt_health 
+	
 func _on_area_entered(area: Area2D) -> void:
 	pass

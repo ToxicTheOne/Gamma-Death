@@ -5,7 +5,7 @@ extends CharacterBody2D
 @onready var health_bar_comp: ProgressBar = $HealthBarComp
 @onready var ai_move_comp: NavigationAgent2D = $AIMoveComp
 @export var player : CharacterBody2D
-@onready var melee_comp: Node2D = $MeleeComp
+
 
 
 
@@ -14,6 +14,7 @@ extends CharacterBody2D
 @onready var enemytype = enemyinfos[0]
 @onready var enemyhealth = enemytype[0]
 @onready var enemyspeed = enemytype[1]
+@onready var max_enemy_health = enemyhealth
 
 func _ready() -> void:
 	if player == null:
@@ -28,10 +29,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	$body.look_at(player.global_position)
-	melee_comp.look_at(player.global_position)
-	$detectionarea.look_at(player.global_position)
-	if enemyhealth <= 0:
-		die()
+	$MeleeComp.look_at(player.global_position) 
+
 	
 
 
@@ -51,7 +50,3 @@ func die():
 	
 	await tween.finished
 	queue_free()
-
-
-func _on_detectionarea_area_entered(area: Area2D) -> void:
-	melee_comp.swing()

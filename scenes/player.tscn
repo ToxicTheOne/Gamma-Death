@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bkp2jcl5666yk"]
+[gd_scene load_steps=21 format=3 uid="uid://bkp2jcl5666yk"]
 
 [ext_resource type="PackedScene" uid="uid://icvsnsk4d22m" path="res://components/health_comp.tscn" id="1_g2els"]
 [ext_resource type="Script" uid="uid://d24vwg201yoam" path="res://scripts/player.gd" id="1_tuyoq"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cuayx4usndm80" path="res://textures/weapontextures/gun_32x32_v1.png" id="6_fjrip"]
 [ext_resource type="Texture2D" uid="uid://mx2c587lda8f" path="res://textures/playertextures/player_hair_body.png" id="6_smehm"]
 [ext_resource type="Script" uid="uid://2jmw768v3l2" path="res://scripts/dash_comp.gd" id="7_fjrip"]
+[ext_resource type="Script" uid="uid://l2pimkl1yfdo" path="res://scripts/health_bar_comp.gd" id="9_ur7pv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ur7pv"]
 
@@ -150,15 +151,42 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smehm"]
 size = Vector2(16.5, 17.5)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4r1p"]
+bg_color = Color(0, 0, 0, 1)
+shadow_color = Color(0.0941176, 0.0941176, 0.0941176, 0.462745)
+shadow_size = 1
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2wvv"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jej6c"]
+bg_color = Color(1, 0.027451, 0.0784314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f1ej7"]
+bg_color = Color(0.123473, 0.123473, 0.123473, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+shadow_color = Color(0.133333, 0.133333, 0.133333, 0.717647)
+shadow_size = 1
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oprun"]
+bg_color = Color(1, 1, 1, 1)
+
 [node name="player" type="CharacterBody2D" groups=["player"]]
 scale = Vector2(4, 4)
 script = ExtResource("1_tuyoq")
 
-[node name="HealthComp" parent="." instance=ExtResource("1_g2els")]
-script = null
-
-[node name="HitboxComp" parent="." groups=["player"] instance=ExtResource("3_qhqgy")]
+[node name="health_comp" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("1_g2els")]
 player = true
+parent = NodePath("..")
+
+[node name="HitboxComp" parent="." node_paths=PackedStringArray("playerhealthbar") groups=["player"] instance=ExtResource("3_qhqgy")]
+player = true
+playerhealthbar = NodePath("../healthbar")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComp"]
 shape = SubResource("CircleShape2D_ur7pv")
@@ -217,7 +245,50 @@ texture = ExtResource("6_smehm")
 position = Vector2(-1, 0.25)
 shape = SubResource("RectangleShape2D_smehm")
 
-[node name="DashComp" type="Node2D" parent="."]
+[node name="DashComp" type="Node2D" parent="." node_paths=PackedStringArray("dashbar")]
 script = ExtResource("7_fjrip")
+dashbar = NodePath("dashbar")
+
+[node name="dashbar" type="ProgressBar" parent="DashComp"]
+z_index = 50
+offset_left = -143.0
+offset_top = 65.5
+offset_right = -103.0
+offset_bottom = 70.5
+theme_override_styles/background = SubResource("StyleBoxFlat_y4r1p")
+theme_override_styles/fill = SubResource("StyleBoxFlat_d2wvv")
+value = 100.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="healthbar" type="ProgressBar" parent="."]
+z_index = 50
+offset_left = -142.21
+offset_top = 48.5
+offset_right = -72.21
+offset_bottom = 57.5
+theme_override_styles/fill = SubResource("StyleBoxFlat_jej6c")
+value = 81.15
+allow_greater = true
+show_percentage = false
+script = ExtResource("9_ur7pv")
+
+[node name="Damagebar" type="ProgressBar" parent="healthbar"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_f1ej7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_oprun")
+value = 76.57
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="healthbar"]
+wait_time = 0.4
+one_shot = true
 
 [connection signal="area_entered" from="HitboxComp" to="HitboxComp" method="_on_area_entered"]
+[connection signal="timeout" from="healthbar/Timer" to="healthbar" method="_on_timer_timeout"]

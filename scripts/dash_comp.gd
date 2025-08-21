@@ -2,8 +2,8 @@ extends Node2D
 
 
 
-
-
+@onready var dash_comp: Node2D = $"."
+@export var dashbar: ProgressBar 
 
 
 func dash(direction :  Vector2, dash_speed : int):
@@ -13,9 +13,11 @@ func dash(direction :  Vector2, dash_speed : int):
 	# If the player is the one dashing:
 	if parent.is_in_group("player"):
 		parent.remove_from_group("player")
+		emptybar()
 		parent.velocity.x = direction.x * dash_speed
 		parent.velocity.y = direction.y * dash_speed
 		await get_tree().create_timer(0.15).timeout
+		fillbar()
 		parent.add_to_group("player")
 	
 	# If the enemy is dashing:
@@ -25,3 +27,15 @@ func dash(direction :  Vector2, dash_speed : int):
 		parent.velocity.y = direction.y * dash_speed
 		await get_tree().create_timer(0.15).timeout
 		parent.add_to_group("enemy")
+
+
+
+func emptybar():
+	var tween = get_tree().create_tween()
+	
+	tween.tween_property(dashbar, "value", 0, 0.4).set_trans(Tween.TRANS_EXPO)
+
+func fillbar():
+	var tween = get_tree().create_tween()
+	
+	tween.tween_property(dashbar, "value", 100, 0.4).set_trans(Tween.TRANS_EXPO).set_delay(0.2)
