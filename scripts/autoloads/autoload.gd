@@ -3,6 +3,7 @@ extends Node2D
 # Other
 @export var player : CharacterBody2D
 
+
 # Player stats
 @onready var player_max_health : float = 100
 @onready var player_curremt_health : float = player_max_health 
@@ -42,8 +43,20 @@ var bullet_nodes : Array[PackedScene] = [
 ]
 
 var enemy_info : Dictionary = {
-	"enemymelee" : [120, 1.7], # HEALTH, SPEED
-	"enemyshooter" : [100, 1.5],
-	"enemyheavy" : [200, 1.2]
+	"enemymelee" : [120, 1.7, 10], # HEALTH, SPEED, ITS SPAWN VALUE
+	"enemyshooter" : [100, 1.5, 15],
+	"enemyheavy" : [200, 1.1, 20]
 	
 }
+
+var enemy_nodes : Array[PackedScene] = [
+	preload("res://scenes/enemymelee.tscn"), # Billy club
+	preload("res://scenes/enemyshooter.tscn"), # Shooter
+	preload("res://scenes/enemyheavy.tscn"), # Heavy shooter
+	]
+
+var enemy_bullet_nodes : Array[PackedScene] = [
+	preload("res://scenes/bullets/enemybullet.tscn"), # Normal
+	preload("res://scenes/bullets/heavybullet.tscn"), # Heavy
+	
+]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://b0doth0ojesqw"]
+[gd_scene load_steps=26 format=4 uid="uid://b0doth0ojesqw"]
 
 [ext_resource type="Texture2D" uid="uid://kr7k512yvdin" path="res://textures/worldtextures/glass_tiles_v2.png" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://bkp2jcl5666yk" path="res://scenes/player.tscn" id="1_o5qli"]
@@ -6,11 +6,19 @@
 [ext_resource type="Script" uid="uid://816xgbf770m" path="res://scripts/autoloads/labelmanager.gd" id="2_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://ccd5kofndywb0" path="res://textures/worldtextures/tileset_3.png" id="2_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://bkonrvgx1jst6" path="res://textures/worldtextures/door_closed.png" id="3_85g3d"]
+[ext_resource type="Script" uid="uid://ceplrvbvxn5ns" path="res://scripts/door.gd" id="3_a8y0u"]
+[ext_resource type="Texture2D" uid="uid://i0rmi54sava6" path="res://textures/worldtextures/door_opened.png" id="4_trceg"]
 [ext_resource type="PackedScene" uid="uid://fptl0eu1e1ts" path="res://scenes/enemymelee.tscn" id="5_tbgi4"]
 [ext_resource type="Script" uid="uid://b6s2v17tbpxtr" path="res://scripts/autoloads/autoload.gd" id="6_tefeu"]
 [ext_resource type="Texture2D" uid="uid://dxxehgiaslls0" path="res://textures/worldtextures/table_object.png" id="6_ya4ey"]
 [ext_resource type="FontFile" uid="uid://uxd40o5dm41t" path="res://other/font.ttf" id="7_tipki"]
 [ext_resource type="Texture2D" uid="uid://cx146h3uvklsi" path="res://textures/worldtextures/box_object.png" id="11_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://jgwukui510dl" path="res://scenes/enemyspawner.tscn" id="12_eb6dy"]
+
+[sub_resource type="Gradient" id="Gradient_trceg"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a8y0u"]
+gradient = SubResource("Gradient_trceg")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_choun"]
 size = Vector2(141.571, 162.624)
@@ -87,13 +95,15 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-185, -125, -181, -258,
 script = ExtResource("6_tefeu")
 player = NodePath("player")
 
-[node name="Control" type="Control" parent="." node_paths=PackedStringArray("secondtimer")]
+[node name="Control" type="Control" parent="." node_paths=PackedStringArray("secondtimer", "doorspriteopen", "doorspriteclosed")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_o6xl0")
 secondtimer = NodePath("secondtimer")
+doorspriteopen = NodePath("door/doorspriteopen")
+doorspriteclosed = NodePath("door/doorspriteclosed")
 
 [node name="secondtimer" type="Timer" parent="Control"]
 autostart = true
@@ -101,11 +111,25 @@ autostart = true
 [node name="door" type="StaticBody2D" parent="Control"]
 position = Vector2(715, -232)
 scale = Vector2(1.5, 1.5)
+script = ExtResource("3_a8y0u")
+
+[node name="black" type="Sprite2D" parent="Control/door"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 3
+position = Vector2(-1, -0.333328)
+scale = Vector2(2.05208, 1.96875)
+texture = SubResource("GradientTexture2D_a8y0u")
 
 [node name="doorspriteclosed" type="Sprite2D" parent="Control/door"]
 texture_filter = 3
 scale = Vector2(2, 2)
 texture = ExtResource("3_85g3d")
+
+[node name="doorspriteopen" type="Sprite2D" parent="Control/door"]
+visible = false
+texture_filter = 3
+scale = Vector2(2, 2)
+texture = ExtResource("4_trceg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Control/door"]
 position = Vector2(-2, 0.354645)
@@ -118,6 +142,8 @@ shape = SubResource("RectangleShape2D_choun")
 position = Vector2(-1, 1)
 shape = SubResource("RectangleShape2D_ya4ey")
 debug_color = Color(0.948301, 2.59906e-06, 0.57897, 0.42)
+
+[node name="totaltimer" type="Timer" parent="Control"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -30
@@ -194,7 +220,7 @@ scale = Vector2(12.7869, 11.8701)
 shape = SubResource("RectangleShape2D_tefeu")
 
 [node name="enemymelee" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_tbgi4")]
-position = Vector2(202, 719)
+position = Vector2(1639, -83)
 player = NodePath("../player")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
@@ -285,4 +311,13 @@ region_rect = Rect2(30.805, 1.705, 32.175, 28.885)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
+[node name="enemyspawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("12_eb6dy")]
+position = Vector2(-22, 1679)
+player = NodePath("../player")
+
+[node name="enemyspawner2" parent="." node_paths=PackedStringArray("player") instance=ExtResource("12_eb6dy")]
+position = Vector2(1666, 1666)
+player = NodePath("../player")
+
 [connection signal="timeout" from="Control/secondtimer" to="Control" method="_on_secondtimer_timeout"]
+[connection signal="timeout" from="Control/totaltimer" to="Control" method="_on_totaltimer_timeout"]

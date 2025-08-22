@@ -1,11 +1,16 @@
 extends CharacterBody2D
 
+# Variables
 var can_dash : bool = true
 var speed : int
 var is_walking : bool
+
+# Components
 @onready var dash_component = $DashComp
 
+# Nodes
 @onready var healthbar: ProgressBar = $"healthbar"
+@onready var drivelabel: RichTextLabel = $drivelabel
 
 
 
@@ -13,6 +18,9 @@ func _ready():
 	healthbar.initialize_health(Autoload.player_max_health)
 
 func _physics_process(delta: float) -> void:
+	
+	# Sets up the drive label
+	drivelabel.text = str("Drive x", Autoload.drive)
 	
 	# Makes the body look at the mouse
 	$body.look_at(get_global_mouse_position())

@@ -10,14 +10,13 @@ extends CharacterBody2D
 
 
 # Variables
-@onready var enemyname = "enemymelee"
-@onready var enemynames = Autoload.enemy_info.keys()
+@onready var enemyname = "enemyheavy"
 @onready var enemyinfos = Autoload.enemy_info.values()
-@onready var enemytype = enemyinfos[0]
+@onready var enemytype = enemyinfos[2]
 @onready var enemyhealth = enemytype[0]
 @onready var enemyspeed = enemytype[1]
 @onready var max_enemy_health = enemyhealth
-var points : int = 2
+var points : int = 4
 @onready var skew_position : bool = false
 
 func _ready() -> void:
@@ -34,7 +33,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	$body.look_at(player.global_position)
-	$MeleeComp.look_at(player.global_position) 
+	$GunComp.look_at(player.global_position) 
+
 	
 	if skew_position == true:
 		position.x -= player.position.x / 320

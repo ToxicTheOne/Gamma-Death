@@ -8,7 +8,7 @@ radius = 3.0
 
 [node name="radiobullet" type="Area2D"]
 z_index = -10
-scale = Vector2(2, 2)
+scale = Vector2(3, 3)
 script = ExtResource("1_ydply")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

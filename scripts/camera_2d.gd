@@ -1,7 +1,7 @@
 extends Camera2D
 
 @export var player_node : CharacterBody2D
-var lerp_speed = 6.0
+var lerp_speed = 9.0
 @onready var wave_label: RichTextLabel = $wavelabel
 
 

@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://yw4inamt2a73"]
+
+[ext_resource type="Script" uid="uid://bbt46nqu7c3qw" path="res://scripts/driveparticle.gd" id="1_1nati"]
+[ext_resource type="Texture2D" uid="uid://dagm8eoldjdo2" path="res://textures/weapontextures/bullet_32x32.png" id="2_cti8a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e1k5t"]
+radius = 3.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1nati"]
+
+[node name="driveparticle" type="Area2D"]
+scale = Vector2(4, 4)
+script = ExtResource("1_1nati")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.824717, 0, 0.0913823, 1)
+texture_filter = 3
+position = Vector2(-0.5, 0.5)
+texture = ExtResource("2_cti8a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_e1k5t")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.7877, 0.0167165, 1.92523e-07, 1)
+energy = 4.0
+texture = SubResource("CompressedTexture2D_1nati")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

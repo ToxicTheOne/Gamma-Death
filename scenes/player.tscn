@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bkp2jcl5666yk"]
+[gd_scene load_steps=23 format=3 uid="uid://bkp2jcl5666yk"]
 
 [ext_resource type="PackedScene" uid="uid://icvsnsk4d22m" path="res://components/health_comp.tscn" id="1_g2els"]
 [ext_resource type="Script" uid="uid://d24vwg201yoam" path="res://scripts/player.gd" id="1_tuyoq"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://mx2c587lda8f" path="res://textures/playertextures/player_hair_body.png" id="6_smehm"]
 [ext_resource type="Script" uid="uid://2jmw768v3l2" path="res://scripts/dash_comp.gd" id="7_fjrip"]
 [ext_resource type="Script" uid="uid://l2pimkl1yfdo" path="res://scripts/health_bar_comp.gd" id="9_ur7pv"]
+[ext_resource type="FontFile" uid="uid://uxd40o5dm41t" path="res://other/font.ttf" id="10_y4r1p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ur7pv"]
 
@@ -176,6 +177,9 @@ shadow_offset = Vector2(0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oprun"]
 bg_color = Color(1, 1, 1, 1)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_y4r1p"]
+polygon = PackedVector2Array(-10.25, -0.5, 1, -9.25, 9, -2.25, 4.75, 7.75, -3.75, 8.75, -9.75, 4)
+
 [node name="player" type="CharacterBody2D" groups=["player"]]
 scale = Vector2(4, 4)
 script = ExtResource("1_tuyoq")
@@ -221,8 +225,8 @@ libraries = {
 
 [node name="GunComp" parent="body" node_paths=PackedStringArray("shapecast") instance=ExtResource("5_smehm")]
 position = Vector2(0, -1.5)
-shapecast = NodePath("ShapeCast2D")
 player = true
+shapecast = NodePath("ShapeCast2D")
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="body/GunComp"]
 position = Vector2(-2, 1.75)
@@ -245,9 +249,10 @@ texture = ExtResource("6_smehm")
 position = Vector2(-1, 0.25)
 shape = SubResource("RectangleShape2D_smehm")
 
-[node name="DashComp" type="Node2D" parent="." node_paths=PackedStringArray("dashbar")]
+[node name="DashComp" type="Node2D" parent="." node_paths=PackedStringArray("dashbar", "hitbox")]
 script = ExtResource("7_fjrip")
 dashbar = NodePath("dashbar")
+hitbox = NodePath("../HitboxComp")
 
 [node name="dashbar" type="ProgressBar" parent="DashComp"]
 z_index = 50
@@ -289,6 +294,33 @@ show_percentage = false
 [node name="Timer" type="Timer" parent="healthbar"]
 wait_time = 0.4
 one_shot = true
+
+[node name="drivelabel" type="RichTextLabel" parent="."]
+modulate = Color(1, 0.027451, 0.0784314, 1)
+z_index = 50
+texture_filter = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.5
+offset_top = 35.75
+offset_right = -42.5
+offset_bottom = 55.75
+grow_horizontal = 2
+scale = Vector2(0.5, 0.5)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_outline_size = 1
+theme_override_fonts/normal_font = ExtResource("10_y4r1p")
+text = "DRIVE
+"
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(0, -1)
+occluder = SubResource("OccluderPolygon2D_y4r1p")
 
 [connection signal="area_entered" from="HitboxComp" to="HitboxComp" method="_on_area_entered"]
 [connection signal="timeout" from="healthbar/Timer" to="healthbar" method="_on_timer_timeout"]

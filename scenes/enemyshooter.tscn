@@ -1,0 +1,79 @@
+[gd_scene load_steps=13 format=3 uid="uid://dcr1aqxugb138"]
+
+[ext_resource type="PackedScene" uid="uid://icvsnsk4d22m" path="res://components/health_comp.tscn" id="1_5djbi"]
+[ext_resource type="Script" uid="uid://cvulnalnjbniw" path="res://scripts/enemyshooter.gd" id="1_7q5m2"]
+[ext_resource type="PackedScene" uid="uid://dbfryeqvscnb1" path="res://components/hitbox_comp.tscn" id="2_a0caj"]
+[ext_resource type="Texture2D" uid="uid://c5aynv4x4keuj" path="res://textures/enemytextures/cop_body.png" id="3_e8jkr"]
+[ext_resource type="Texture2D" uid="uid://b3d5pu1i0odlp" path="res://textures/enemytextures/cop_head.png" id="4_7q5m2"]
+[ext_resource type="PackedScene" uid="uid://bo4bix24bdyx0" path="res://components/ai_move_comp.tscn" id="5_irril"]
+[ext_resource type="PackedScene" uid="uid://dxdvp8xq4y2p1" path="res://components/health_bar_comp.tscn" id="6_tds7u"]
+[ext_resource type="PackedScene" uid="uid://dpp7xtxiyao65" path="res://components/gun_comp.tscn" id="7_e8jkr"]
+[ext_resource type="Texture2D" uid="uid://cuayx4usndm80" path="res://textures/weapontextures/gun_32x32_v1.png" id="8_7q5m2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sxwdm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_38l7a"]
+radius = 11.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7q5m2"]
+size = Vector2(76.625, 16.0625)
+
+[node name="enemyshooter" type="CharacterBody2D"]
+scale = Vector2(4, 4)
+script = ExtResource("1_7q5m2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = -5
+shape = SubResource("CircleShape2D_sxwdm")
+
+[node name="health_comp" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("1_5djbi")]
+parent = NodePath("..")
+
+[node name="HitboxComp" parent="." node_paths=PackedStringArray("other_collision", "health_bar_comp") groups=["enemy"] instance=ExtResource("2_a0caj")]
+other_collision = NodePath("../CollisionShape2D")
+health_bar_comp = NodePath("../HealthBarComp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComp"]
+z_index = -2
+shape = SubResource("CircleShape2D_38l7a")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="body" type="Node2D" parent="."]
+
+[node name="body" type="Sprite2D" parent="body"]
+z_index = -2
+texture_filter = 3
+rotation = -0.734107
+texture = ExtResource("3_e8jkr")
+
+[node name="head" type="Sprite2D" parent="body"]
+texture_filter = 3
+rotation = -0.734107
+texture = ExtResource("4_7q5m2")
+
+[node name="AIMoveComp" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("5_irril")]
+max_speed = 500000.0
+path_desired_dist = 400.0
+target_desired_dist = 400.0
+parent = NodePath("..")
+
+[node name="HealthBarComp" parent="." instance=ExtResource("6_tds7u")]
+
+[node name="GunComp" parent="." node_paths=PackedStringArray("areadetection") instance=ExtResource("7_e8jkr")]
+areadetection = NodePath("Area2D")
+bulletname = "bullet"
+
+[node name="gun" type="Sprite2D" parent="GunComp"]
+z_index = -1
+texture_filter = 3
+position = Vector2(1, -1)
+rotation = -0.81103
+texture = ExtResource("8_7q5m2")
+
+[node name="Area2D" type="Area2D" parent="GunComp"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GunComp/Area2D"]
+position = Vector2(49.75, 0.25)
+shape = SubResource("RectangleShape2D_7q5m2")
+
+[connection signal="area_entered" from="HitboxComp" to="HitboxComp" method="_on_area_entered"]
