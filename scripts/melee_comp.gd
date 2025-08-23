@@ -1,29 +1,22 @@
 extends Node2D
 
-@export var hitboxbilly : Area2D 
+@export var shapecast : ShapeCast2D 
 @export var animationplayer : AnimationPlayer
-@export var weapon_damage : int = 5
+@export var weapon_damage : float = 4
+
 
 func _ready() -> void:
 	pass
 
 
-#func swing():
-	#var tween = get_tree().create_tween()
-	#hitboxbilly.monitorable = true
-	#hitboxbilly.monitoring = true
-	#
-	#
-	#
-	#animationplayer.play("swing")
-	#await animationplayer.animation_finished
-	#
-	#hitboxbilly.monitorable = false
-	#hitboxbilly.monitoring = false
-	#animationplayer.play_backwards("swing")
 
+func _physics_process(delta: float) -> void:
+	if shapecast.is_colliding():
+		var area = shapecast.get_collider(0)
+		if area.is_in_group("player"):
+			shapecast.collide_with_areas = false
+			area.take_damage(weapon_damage)
+			await get_tree().create_timer(0.4).timeout
+			shapecast.collide_with_areas = true
 
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	if area.is_in_group("player"):
-		area.take_damage(weapon_damage)
-		print("hey i touched player - meleecomp")
+	global_rotation -= 0.1

@@ -19,12 +19,16 @@ var points : int = 3
 @onready var skew_position : bool = false
 
 func _ready() -> void:
+
 	if player == null:
 		player = Autoload.player
 		ai_move_comp.movement_target = player
+		$GunComp.player_node = player
 	else:
 		ai_move_comp.movement_target = player
 		Autoload.player = player
+		$GunComp.player_node = player
+	
 	
 	health_bar_comp.initialize_health(enemyhealth)
 

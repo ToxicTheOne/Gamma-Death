@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://k0po7kbea5io"]
+[gd_scene load_steps=12 format=3 uid="uid://k0po7kbea5io"]
 
 [ext_resource type="Script" uid="uid://tuspmcfdn88m" path="res://scripts/enemyheavy.gd" id="1_klu40"]
 [ext_resource type="PackedScene" uid="uid://icvsnsk4d22m" path="res://components/health_comp.tscn" id="2_w868v"]
@@ -15,9 +15,6 @@ radius = 12.5225
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pt3mr"]
 radius = 13.0096
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yrvlg"]
-size = Vector2(60.5625, 9.03125)
 
 [node name="enemyheavy" type="CharacterBody2D"]
 scale = Vector2(4, 4)
@@ -61,10 +58,9 @@ texture_filter = 3
 rotation = -0.734107
 texture = ExtResource("5_1v143")
 
-[node name="GunComp" parent="." node_paths=PackedStringArray("areadetection") instance=ExtResource("8_as33x")]
+[node name="GunComp" parent="." instance=ExtResource("8_as33x")]
 position = Vector2(0.25, 9.53674e-07)
 rotation = 0.0121883
-areadetection = NodePath("Area2D")
 bulletname = "heavybullet"
 
 [node name="gun" type="Sprite2D" parent="GunComp"]
@@ -75,13 +71,5 @@ position = Vector2(1, -1)
 rotation = -0.81103
 scale = Vector2(1.29568, 1.23377)
 texture = ExtResource("9_ed7wh")
-
-[node name="Area2D" type="Area2D" parent="GunComp"]
-position = Vector2(-19.2425, 0.734581)
-rotation = -0.0089516
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GunComp/Area2D"]
-position = Vector2(54, 0)
-shape = SubResource("RectangleShape2D_yrvlg")
 
 [connection signal="area_entered" from="HitboxComp" to="HitboxComp" method="_on_area_entered"]

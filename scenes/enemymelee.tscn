@@ -15,8 +15,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_ral38"]
 radius = 11.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g10tg"]
-size = Vector2(6.55472, 21.1285)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ss18l"]
 
 [sub_resource type="Animation" id="Animation_p5puy"]
 length = 0.001
@@ -83,8 +82,8 @@ texture_filter = 3
 rotation = -0.734107
 texture = ExtResource("4_0nijp")
 
-[node name="MeleeComp" parent="." node_paths=PackedStringArray("hitboxbilly", "animationplayer") instance=ExtResource("4_nqhru")]
-hitboxbilly = NodePath("Area2D")
+[node name="MeleeComp" parent="." node_paths=PackedStringArray("shapecast", "animationplayer") instance=ExtResource("4_nqhru")]
+shapecast = NodePath("ShapeCast2D")
 animationplayer = NodePath("../AnimationPlayer")
 
 [node name="billyclub" type="Sprite2D" parent="MeleeComp"]
@@ -95,14 +94,18 @@ rotation = 1.43035
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("7_ws5fo")
 
-[node name="Area2D" type="Area2D" parent="MeleeComp"]
-position = Vector2(6.84936, -7.5)
-rotation = -1.07267
+[node name="ShapeCast2D" type="ShapeCast2D" parent="MeleeComp"]
+position = Vector2(1, 5.25)
+rotation = -1.7244
+scale = Vector2(0.36136, 0.314016)
+shape = SubResource("RectangleShape2D_ss18l")
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeComp/Area2D"]
-position = Vector2(-9.1944, 7.16417)
-rotation = -0.615572
-shape = SubResource("RectangleShape2D_g10tg")
+[node name="Timer" type="Timer" parent="MeleeComp"]
+wait_time = 3.0
+autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -118,4 +121,4 @@ parent = NodePath("..")
 [node name="HealthBarComp" parent="." instance=ExtResource("9_ss18l")]
 
 [connection signal="area_entered" from="HitboxComp" to="HitboxComp" method="_on_area_entered"]
-[connection signal="area_entered" from="MeleeComp/Area2D" to="MeleeComp" method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="MeleeComp/Timer" to="MeleeComp" method="_on_timer_timeout"]

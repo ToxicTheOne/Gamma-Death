@@ -1,6 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpp7xtxiyao65"]
+[gd_scene load_steps=3 format=3 uid="uid://dpp7xtxiyao65"]
 
 [ext_resource type="Script" uid="uid://cwb3byph02yo5" path="res://scripts/gun_comp.gd" id="1_dqf4y"]
 
-[node name="GunComp" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqf4y"]
+
+[node name="GunComp" type="Node2D" node_paths=PackedStringArray("shapecast")]
 script = ExtResource("1_dqf4y")
+shapecast = NodePath("ShapeCast")
+
+[node name="ShapeCast" type="ShapeCast2D" parent="."]
+position = Vector2(24.5, -0.5)
+rotation = 4.70438
+scale = Vector2(0.775341, 1.10674)
+shape = SubResource("RectangleShape2D_dqf4y")
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false

@@ -34,7 +34,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	$body.look_at(player.global_position)
-	$MeleeComp.look_at(player.global_position) 
+	#$MeleeComp.look_at(player.global_position) 
 	
 	if skew_position == true:
 		position.x -= player.position.x / 320

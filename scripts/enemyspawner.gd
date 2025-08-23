@@ -24,7 +24,7 @@ func spawn():
 	
 	var randomlistindex = randi_range(0,enemylist.size() - 1)
 	
-	random_timing = randf_range(3,6)
+	random_timing = randf_range(4,6)
 	timer.wait_time = random_timing
 	
 	

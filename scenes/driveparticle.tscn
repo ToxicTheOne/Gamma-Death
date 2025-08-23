@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://yw4inamt2a73"]
+[gd_scene load_steps=6 format=3 uid="uid://yw4inamt2a73"]
 
 [ext_resource type="Script" uid="uid://bbt46nqu7c3qw" path="res://scripts/driveparticle.gd" id="1_1nati"]
 [ext_resource type="Texture2D" uid="uid://dagm8eoldjdo2" path="res://textures/weapontextures/bullet_32x32.png" id="2_cti8a"]
+[ext_resource type="AudioStream" uid="uid://bhy02fow448c6" path="res://sounds/tap2.mp3" id="3_cti8a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e1k5t"]
 radius = 3.0
@@ -25,5 +26,9 @@ shape = SubResource("CircleShape2D_e1k5t")
 color = Color(0.7877, 0.0167165, 1.92523e-07, 1)
 energy = 4.0
 texture = SubResource("CompressedTexture2D_1nati")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_cti8a")
+volume_db = 10.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
