@@ -8,7 +8,7 @@ extends StaticBody2D
 func _ready() -> void:
 	Labelmanager.waveend.connect(on_wave_end)
 	Labelmanager.wavestart.connect(on_wave_start)
-
+	
 
 func on_wave_start():
 	doorspriteclosed.visible = true

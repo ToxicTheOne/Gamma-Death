@@ -180,9 +180,10 @@ bg_color = Color(1, 1, 1, 1)
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_y4r1p"]
 polygon = PackedVector2Array(-10.25, -0.5, 1, -9.25, 9, -2.25, 4.75, 7.75, -3.75, 8.75, -9.75, 4)
 
-[node name="player" type="CharacterBody2D" groups=["player"]]
+[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("bonuslabel") groups=["player"]]
 scale = Vector2(4, 4)
 script = ExtResource("1_tuyoq")
+bonuslabel = NodePath("bonuslabel")
 
 [node name="health_comp" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("1_g2els")]
 player = true
@@ -319,6 +320,30 @@ theme_override_constants/shadow_outline_size = 1
 theme_override_fonts/normal_font = ExtResource("10_y4r1p")
 text = "DRIVE
 "
+
+[node name="bonuslabel" type="RichTextLabel" parent="."]
+modulate = Color(1, 0.027451, 0.0784314, 1)
+z_index = 50
+texture_filter = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -154.25
+offset_top = 16.75
+offset_right = 5.75
+offset_bottom = 56.75
+grow_horizontal = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(0, 13.37)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_outline_size = 1
+theme_override_fonts/normal_font = ExtResource("10_y4r1p")
+theme_override_font_sizes/normal_font_size = 22
+text = "DRIVE BONUS +4"
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 position = Vector2(0, -1)

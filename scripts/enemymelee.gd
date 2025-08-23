@@ -55,7 +55,7 @@ func die():
 	
 	await get_tree().create_timer(0.3).timeout
 	
-	
+	Labelmanager.enemies_alive -= 1
 	
 	for i in points:
 		var new_drive_particle = driveparticle.instantiate()

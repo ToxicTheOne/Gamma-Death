@@ -2,13 +2,15 @@ extends Node
 
 # Signals
 signal animatewave
+signal animatebonuslabel
 signal waveend
 signal wavestart
+
 
 # Wave
 @onready var wave: int = 0
 @onready var wave_duration : int = 30
-@onready var wave_intensity : float = 50.0
+@onready var wave_intensity : int = 15 # Spawns double its value. so 20 = 4 enemies. Kinda
 @onready var wave_intensity_copy : float = wave_intensity
 
 # Time
@@ -23,11 +25,15 @@ var total_points
 @export var doorspriteopen : Sprite2D
 @export var doorspriteclosed : Sprite2D
 
+# Variables
+@onready var enemies_alive : int = 0
+@onready var stopped_wave : bool = false
+@onready var drivebonus : int = 0
 
 func _ready() -> void:
 	await get_tree().create_timer(0.5).timeout
 	wave = 0
-	wave_intensity = 50
+	wave_intensity = 15
 	new_wave()
 
 
@@ -35,18 +41,18 @@ func stop_wave():
 	waveend.emit()
 	secondtimer.stop()
 	calculate_drive_boost(seconds)
+	Labelmanager.animatebonuslabel.emit()
 	# "pause" game
 	# open door 
 
 
 func new_wave():
+	stopped_wave = false
 	wavestart.emit()
-#	secondtimer.start()
 	wave += 1
-	#wave_duration += wave * 1.5 waveduration is useless now
-	wave_intensity += wave * 1.2
+	wave_intensity += wave * 0.8
 	wave_intensity_copy = wave_intensity
-	animatewave.emit()
+	Labelmanager.animatewave.emit()
 
 
 
@@ -95,14 +101,16 @@ func _on_secondtimer_timeout() -> void:
 
 func _on_totaltimer_timeout() -> void:
 	totalseconds += 1
-	#if wave_intensity_copy <= 0:
-		#stop_wave()
 
-func calculate_drive_boost(seconds):
+	if Labelmanager.enemies_alive <= 0 and seconds >= 8 and not stopped_wave:
+		stop_wave()
+		stopped_wave = true
+
+func calculate_drive_boost(_seconds):
 	total_points = 100
 	var effective_points = total_points - seconds
-	var drivebonus : int = effective_points / seconds
-	if drivebonus < 0:
-		drivebonus = 0
-	print("DRIVE BONUS IS", drivebonus)
+	Labelmanager.drivebonus = effective_points / seconds
+	if Labelmanager.drivebonus < 0:
+		Labelmanager.drivebonus = 0
+	print("DRIVE BONUS IS ", Labelmanager.drivebonus)
 	total_points += 10

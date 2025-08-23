@@ -43,7 +43,7 @@ var bullet_nodes : Array[PackedScene] = [
 ]
 
 var enemy_info : Dictionary = {
-	"enemymelee" : [120, 1.7, 10], # HEALTH, SPEED, ITS SPAWN VALUE
+	"enemymelee" : [120, 1.9, 10], # HEALTH, SPEED, ITS SPAWN VALUE
 	"enemyshooter" : [100, 1.5, 15],
 	"enemyheavy" : [200, 1.1, 20]
 	

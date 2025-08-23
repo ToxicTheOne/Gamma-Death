@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://b0doth0ojesqw"]
+[gd_scene load_steps=25 format=4 uid="uid://b0doth0ojesqw"]
 
 [ext_resource type="Texture2D" uid="uid://kr7k512yvdin" path="res://textures/worldtextures/glass_tiles_v2.png" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://bkp2jcl5666yk" path="res://scenes/player.tscn" id="1_o5qli"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://bkonrvgx1jst6" path="res://textures/worldtextures/door_closed.png" id="3_85g3d"]
 [ext_resource type="Script" uid="uid://ceplrvbvxn5ns" path="res://scripts/door.gd" id="3_a8y0u"]
 [ext_resource type="Texture2D" uid="uid://i0rmi54sava6" path="res://textures/worldtextures/door_opened.png" id="4_trceg"]
-[ext_resource type="PackedScene" uid="uid://fptl0eu1e1ts" path="res://scenes/enemymelee.tscn" id="5_tbgi4"]
 [ext_resource type="Script" uid="uid://b6s2v17tbpxtr" path="res://scripts/autoloads/autoload.gd" id="6_tefeu"]
 [ext_resource type="Texture2D" uid="uid://dxxehgiaslls0" path="res://textures/worldtextures/table_object.png" id="6_ya4ey"]
 [ext_resource type="FontFile" uid="uid://uxd40o5dm41t" path="res://other/font.ttf" id="7_tipki"]
@@ -144,6 +143,7 @@ shape = SubResource("RectangleShape2D_ya4ey")
 debug_color = Color(0.948301, 2.59906e-06, 0.57897, 0.42)
 
 [node name="totaltimer" type="Timer" parent="Control"]
+autostart = true
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -30
@@ -218,10 +218,6 @@ shape = SubResource("RectangleShape2D_85g3d")
 position = Vector2(387, 1025)
 scale = Vector2(12.7869, 11.8701)
 shape = SubResource("RectangleShape2D_tefeu")
-
-[node name="enemymelee" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_tbgi4")]
-position = Vector2(1639, -83)
-player = NodePath("../player")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_tbgi4")

@@ -11,11 +11,17 @@ var is_walking : bool
 # Nodes
 @onready var healthbar: ProgressBar = $"healthbar"
 @onready var drivelabel: RichTextLabel = $drivelabel
+@export var bonuslabel: RichTextLabel 
 
 
 
 func _ready():
 	healthbar.initialize_health(Autoload.player_max_health)
+	Labelmanager.animatebonuslabel.connect(animate_bonuslabel)
+	if bonuslabel == null:
+		bonuslabel = $bonuslabel
+
+	
 
 func _physics_process(delta: float) -> void:
 	
@@ -38,9 +44,6 @@ func _physics_process(delta: float) -> void:
 	
 	walk_animations()
 	initiate_dash()
-	
-	
-	
 	
 	move_and_slide()
 
@@ -68,8 +71,6 @@ func walk_animations():
 	else:
 		$legs/AnimationPlayer.play("RESET")
 
-
-
 func initiate_dash():
 	# If the player presses "Dash" and he can dash:
 	if Input.is_action_just_pressed("dash") and can_dash:
@@ -86,3 +87,19 @@ func initiate_dash():
 		dash_component.dash(direction, Autoload.player_dash_speed)
 		await get_tree().create_timer(Autoload.dash_wait_time).timeout
 		can_dash = true
+
+
+func animate_bonuslabel():
+	var tween = get_tree().create_tween()
+	tween.set_parallel(true)
+	
+	bonuslabel.text = str("DRIVE BONUS +", Labelmanager.drivebonus)
+	
+
+	tween.tween_property(bonuslabel, "scale", Vector2(0.4,0.4), 0.6).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	tween.tween_property(bonuslabel, "scale", Vector2(0.0,0.0), 0.4).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).set_delay(4.6)
+	
+	await tween.finished
+	Autoload.drive += Labelmanager.drivebonus
+
+	
