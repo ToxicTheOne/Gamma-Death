@@ -189,7 +189,7 @@ bonuslabel = NodePath("bonuslabel")
 player = true
 parent = NodePath("..")
 
-[node name="HitboxComp" parent="." node_paths=PackedStringArray("playerhealthbar") groups=["player"] instance=ExtResource("3_qhqgy")]
+[node name="HitboxComp" parent="." node_paths=PackedStringArray("playerhealthbar") groups=["player", "secondaryplayer"] instance=ExtResource("3_qhqgy")]
 collision_layer = 3
 collision_mask = 3
 player = true

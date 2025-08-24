@@ -28,9 +28,8 @@ func take_damage(damage):
 		Labelmanager.display_damage(damage, parent.position)
 		parent.enemyhealth = current_health 
 		health_bar_comp.health = current_health
-	
+
 	elif player:
-		print("AHHH I TOOK DAMAGE - player")
 		Autoload.player_curremt_health -= damage
 		playerhealthbar.health = Autoload.player_curremt_health 
 	

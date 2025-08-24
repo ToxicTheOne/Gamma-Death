@@ -9,9 +9,9 @@ signal wavestart
 
 # Wave
 @onready var wave: int = 0
-@onready var wave_duration : int = 30
-@onready var wave_intensity : int = 15 # Spawns double its value. so 20 = 4 enemies. Kinda
-@onready var wave_intensity_copy : float = wave_intensity
+@onready var wave_duration : float = 30
+@onready var wave_intensity : float = 20 # Spawns double its value. so 20 = 4 enemies. Kinda
+@onready var wave_intensity_copy : int = wave_intensity
 
 # Time
 @onready var seconds : int = 0
@@ -29,17 +29,20 @@ var total_points
 @onready var enemies_alive : int = 0
 @onready var stopped_wave : bool = false
 @onready var drivebonus : int = 0
+@onready var player_entered_lab : bool = false
 
 func _ready() -> void:
-	await get_tree().create_timer(0.5).timeout
-	wave = 0
-	wave_intensity = 15
+	await get_tree().create_timer(0.1).timeout
+	Labelmanager.wave = 0
+	Labelmanager.wave_intensity = 25
 	new_wave()
 
 
+
 func stop_wave():
-	waveend.emit()
-	secondtimer.stop()
+	print("Stop wave function is called")
+	Labelmanager.stopped_wave = true
+	Labelmanager.waveend.emit()
 	calculate_drive_boost(seconds)
 	Labelmanager.animatebonuslabel.emit()
 	# "pause" game
@@ -47,22 +50,25 @@ func stop_wave():
 
 
 func new_wave():
-	stopped_wave = false
-	wavestart.emit()
-	wave += 1
-	wave_intensity += wave * 0.8
-	wave_intensity_copy = wave_intensity
+	Labelmanager.stopped_wave = false
+	Labelmanager.wavestart.emit()
+	Labelmanager.wave += 1
+	Labelmanager.wave_intensity += wave * 1.8
+	Labelmanager.wave_intensity_copy = Labelmanager.wave_intensity
 	Labelmanager.animatewave.emit()
+	print ("New wave function is being called, wave is ", Labelmanager.wave)
+	
+
 
 
 
 func manage_time():
-	if seconds == 60:
-		seconds = 0
-		minutes += 1
-	if totalseconds == 60:
-		totalseconds = 0
-		totalminutes += 1
+	if Labelmanager.seconds == 60:
+		Labelmanager.seconds = 0
+		Labelmanager.minutes += 1
+	if Labelmanager.totalseconds == 60:
+		Labelmanager.totalseconds = 0
+		Labelmanager.totalminutes += 1
 
 func display_damage(value, position: Vector2):
 	var number = Label.new()
@@ -96,21 +102,24 @@ func display_damage(value, position: Vector2):
 
 
 func _on_secondtimer_timeout() -> void:
-	seconds += 1
+	Labelmanager.seconds += 1
 
 
 func _on_totaltimer_timeout() -> void:
-	totalseconds += 1
+	Labelmanager.totalseconds += 1
 
-	if Labelmanager.enemies_alive <= 0 and seconds >= 8 and not stopped_wave:
+	if Labelmanager.enemies_alive <= 0 and Labelmanager.seconds >= 8 and Labelmanager.wave_intensity_copy <= 0 and not Labelmanager.stopped_wave:
 		stop_wave()
-		stopped_wave = true
+
 
 func calculate_drive_boost(_seconds):
 	total_points = 100
-	var effective_points = total_points - seconds
-	Labelmanager.drivebonus = effective_points / seconds
+	var effective_points = total_points - Labelmanager.seconds
+	if effective_points != 0 and Labelmanager.seconds != 0:
+		Labelmanager.drivebonus = effective_points / Labelmanager.seconds
+	else:
+		Labelmanager.drivebonus = 67
 	if Labelmanager.drivebonus < 0:
 		Labelmanager.drivebonus = 0
-	print("DRIVE BONUS IS ", Labelmanager.drivebonus)
 	total_points += 10
+	print("drive bonus calculated")

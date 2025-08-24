@@ -32,6 +32,7 @@ window/stretch/mode="viewport"
 enemy=""
 player=""
 block=""
+secondaryplayer=""
 
 [input]
 

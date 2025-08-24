@@ -97,7 +97,7 @@ func animate_bonuslabel():
 	
 
 	tween.tween_property(bonuslabel, "scale", Vector2(0.4,0.4), 0.6).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
-	tween.tween_property(bonuslabel, "scale", Vector2(0.0,0.0), 0.4).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).set_delay(4.6)
+	tween.tween_property(bonuslabel, "scale", Vector2(0.0,0.0), 0.4).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).set_delay(3.6)
 	
 	await tween.finished
 	Autoload.drive += Labelmanager.drivebonus

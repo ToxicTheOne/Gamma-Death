@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://ceou8a66sx63u"]
+
+[ext_resource type="Script" uid="uid://1vuo16qi2l5u" path="res://scripts/microondebullet.gd" id="1_u3404"]
+[ext_resource type="Texture2D" uid="uid://cvufam6cnny7q" path="res://textures/weapontextures/beam_sprite_v1.png" id="2_i1asn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ywsec"]
+radius = 3.0
+
+[node name="microondebullet" type="Area2D"]
+script = ExtResource("1_u3404")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+rotation = 0.045359
+scale = Vector2(1.24454, 0.568664)
+shape = SubResource("CircleShape2D_ywsec")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 3
+position = Vector2(-0.5, 0.5)
+rotation = 1.57168
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_i1asn")

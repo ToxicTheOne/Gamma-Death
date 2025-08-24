@@ -20,13 +20,30 @@ func spawn():
 	if Labelmanager.wave_intensity_copy <= 0:
 		return
 	
-	Labelmanager.enemies_alive += 1
-	
 	# Take a random index from 0 to the enemy list
 	var randomlistindex = randi_range(0,enemylist.size() - 1)
 	
+	match randomlistindex:
+		0:
+			print(Labelmanager.wave_intensity_copy, " - ", enemyvaluesarraymelee[2])
+			Labelmanager.wave_intensity_copy -= enemyvaluesarraymelee[2]
+		1:
+			print(Labelmanager.wave_intensity_copy, " - ", enemyvaluesarrayshooter[2])
+			Labelmanager.wave_intensity_copy -= enemyvaluesarrayshooter[2]
+		2:
+			print(Labelmanager.wave_intensity_copy, " - ", enemyvaluesarrayheavy[2])
+			Labelmanager.wave_intensity_copy -= enemyvaluesarrayheavy[2]
+	
+
+	
+	if Labelmanager.wave_intensity_copy <= 0:
+		return
+	
+	Labelmanager.enemies_alive += 1
+	
+	
 	# Randomize the time it takes to spawn the enemies
-	random_timing = randf_range(4,6)
+	random_timing = randf_range(2,5)
 	timer.wait_time = random_timing
 	
 	# Take a random enemy with the index and instantiate it
@@ -36,20 +53,12 @@ func spawn():
 	enemy.position = self.position
 	$/root/main.add_child(enemy)
 	
-	match randomlistindex:
-		0:
-			Labelmanager.wave_intensity_copy -= enemyvaluesarraymelee[2]
-			print(Labelmanager.wave_intensity_copy, " - ", enemyvaluesarraymelee[2])
-		1:
-			Labelmanager.wave_intensity_copy -= enemyvaluesarrayshooter[2]
-			print(Labelmanager.wave_intensity_copy, " - ", enemyvaluesarrayshooter[2])
-		2:
-			Labelmanager.wave_intensity_copy -= enemyvaluesarrayheavy[2]
-			print(Labelmanager.wave_intensity_copy, " - ", enemyvaluesarrayheavy[2])
+
 
 func _on_timer_timeout() -> void:
 	var chance = randi_range(1,2)
-	if chance == 1:
-		spawn()
-	else:
-		return
+	#if chance == 1:
+		#spawn()
+	#else:
+		#return
+	spawn()

@@ -10,6 +10,6 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group("player"):
+	if area.is_in_group("secondaryplayer"):
 		Autoload.drive += 1
 		queue_free()

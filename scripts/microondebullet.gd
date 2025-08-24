@@ -3,7 +3,7 @@ extends Area2D
 # Gets the damage multiplier of its wavelenght
 var wavelenght_values : Array = Autoload.wavelenghts.values()
 var wavelenght_array : Array = wavelenght_values[0]
-var wavelenght_multiplier : float = wavelenght_array[0]
+var wavelenght_multiplier : float = wavelenght_array[1]
 
 # Adds to the speed and damage any upgrade boost and its wavelenght multiplier.
 var bullet_damage : float = 10 * wavelenght_multiplier * Autoload.bullet_damage_boost
