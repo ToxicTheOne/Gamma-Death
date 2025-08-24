@@ -7,6 +7,7 @@
 radius = 3.0
 
 [node name="microondebullet" type="Area2D"]
+scale = Vector2(3, 3)
 script = ExtResource("1_u3404")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -16,8 +17,9 @@ scale = Vector2(1.24454, 0.568664)
 shape = SubResource("CircleShape2D_ywsec")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.248079, 0.31777, 1)
 texture_filter = 3
-position = Vector2(-0.5, 0.5)
+position = Vector2(-0.666667, 0.666667)
 rotation = 1.57168
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_i1asn")

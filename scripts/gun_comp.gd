@@ -67,17 +67,17 @@ func get_bullet():
 			"radio":
 				bullet_component = Autoload.bullet_nodes[0]
 			"microonde":
-				pass
+				bullet_component = Autoload.bullet_nodes[1]
 			"infrared":
-				pass
+				bullet_component = Autoload.bullet_nodes[2]
 			"visible":
-				pass
+				bullet_component = Autoload.bullet_nodes[3]
 			"ultraviolet":
-				pass
+				bullet_component = Autoload.bullet_nodes[4]
 			"x-rays":
-				pass
+				bullet_component = Autoload.bullet_nodes[5]
 			"gammarays":
-				pass
+				bullet_component = Autoload.bullet_nodes[6]
 	else:
 		match bulletname:
 			"bullet":

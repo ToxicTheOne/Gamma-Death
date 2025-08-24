@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://mvqvybbxkpm"]
+
+[ext_resource type="Script" uid="uid://ls2rkfq1i4bi" path="res://scripts/x_raybullet.gd" id="1_7xcxx"]
+[ext_resource type="Texture2D" uid="uid://cvufam6cnny7q" path="res://textures/weapontextures/beam_sprite_v1.png" id="1_xtvhs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7xcxx"]
+radius = 3.0
+
+[node name="x-raybullet" type="Area2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_7xcxx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+rotation = 0.045359
+scale = Vector2(1.24454, 0.568664)
+shape = SubResource("CircleShape2D_7xcxx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(8.85606e-06, 0.651061, 0.861008, 1)
+texture_filter = 3
+position = Vector2(-0.5, 0.5)
+rotation = 1.57168
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_xtvhs")

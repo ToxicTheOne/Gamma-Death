@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://kjpgcpldit23"]
+
+[ext_resource type="Texture2D" uid="uid://cvufam6cnny7q" path="res://textures/weapontextures/beam_sprite_v1.png" id="1_8hivb"]
+[ext_resource type="Script" uid="uid://c61u57hi7taa5" path="res://scripts/visiblebullet.gd" id="1_xxg8l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xxg8l"]
+radius = 3.0
+
+[node name="visiblebullet" type="Area2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_xxg8l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+rotation = 0.045359
+scale = Vector2(1.24454, 0.568664)
+shape = SubResource("CircleShape2D_xxg8l")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.824591, 0.596852, 1, 1)
+texture_filter = 3
+position = Vector2(-0.5, 0.5)
+rotation = 1.57168
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_8hivb")

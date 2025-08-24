@@ -38,8 +38,12 @@ const wavelenghts : Dictionary = { # Wave name : Multiplier for bullet
 
 var bullet_nodes : Array[PackedScene] = [
 	preload("res://scenes/bullets/radiobullet.tscn"),
-	
-	
+	preload("res://scenes/bullets/microondebullet.tscn"),
+	preload("res://scenes/bullets/infraredbullet.tscn"),
+	preload("res://scenes/bullets/visiblebullet.tscn"),
+	preload("res://scenes/bullets/ultravioletbullet.tscn"),
+	preload("res://scenes/bullets/x_raybullet.tscn"),
+	preload("res://scenes/bullets/gammabullet.tscn"),
 ]
 
 var enemy_info : Dictionary = {
