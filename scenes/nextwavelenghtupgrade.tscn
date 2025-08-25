@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://pj15iaydee46"]
+
+[ext_resource type="Script" uid="uid://b1b5eaxpwsnjj" path="res://scripts/nextwavelenghtupgrade.gd" id="1_e3ig5"]
+[ext_resource type="Texture2D" uid="uid://d0471tkkbsvtu" path="res://textures/worldtextures/beaker_sprite.png" id="1_eeeao"]
+
+[node name="nextwavelenghtupgrade" type="Node2D"]
+script = ExtResource("1_e3ig5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_eeeao")

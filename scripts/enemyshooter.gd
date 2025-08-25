@@ -5,7 +5,7 @@ extends CharacterBody2D
 @onready var ai_move_comp: NavigationAgent2D = $AIMoveComp
 @export var player : CharacterBody2D
 @onready var driveparticle = preload("res://scenes/driveparticle.tscn")
-
+@onready var gun_comp: Node2D = $GunComp
 
 
 # Variables
@@ -36,7 +36,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	$body.look_at(player.global_position)
-	$GunComp.look_at(player.global_position)
+	if gun_comp != null:
+		gun_comp.look_at(player.global_position)
 	
 	if skew_position == true:
 		position.x -= player.position.x / 320
@@ -46,6 +47,7 @@ func _physics_process(delta: float) -> void:
 
 func die():
 	$HitboxComp.disable(true)
+	$GunComp.queue_free()
 	
 	var tween = get_tree().create_tween()
 	tween.set_parallel(true)

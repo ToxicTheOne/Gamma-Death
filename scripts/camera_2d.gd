@@ -20,11 +20,13 @@ func _physics_process(delta: float) -> void:
 
 
 func animate_wave_label():
+	print("THE WAVE LABEL FUNC IS BEING CALLED")
 	var tween = get_tree().create_tween()
+	
 	wave_label.text = str("WAVE ", Labelmanager.wave)
 	
-	tween.tween_property(wave_label, "position:y", wave_label.position.y + 150, 0.5).set_ease(Tween.EASE_IN)
-	tween.tween_property(wave_label, "modulate:a", 0, 1.3).set_ease(Tween.EASE_OUT).set_delay(2)
-	tween.tween_property(wave_label, "position:y", wave_label.position.y - 150, 0.1)
-	tween.tween_property(wave_label, "modulate:a", 255, 0.1)
+	tween.tween_property(wave_label, "position:y", wave_label.position.y + 150, 0.7).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
+	#tween.tween_property(wave_label, "modulate:a", 0, 1.3)
+	tween.tween_property(wave_label, "position:y", wave_label.position.y - 5, 0.8).set_trans(Tween.TRANS_BACK).set_delay(2)
+	#tween.tween_property(wave_label, "modulate:a", 255, 1).set_delay(0.3)
 	

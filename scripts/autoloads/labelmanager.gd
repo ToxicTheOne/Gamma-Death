@@ -41,21 +41,23 @@ func _ready() -> void:
 
 func stop_wave():
 	print("Stop wave function is called")
+
 	Labelmanager.stopped_wave = true
 	Labelmanager.waveend.emit()
 	calculate_drive_boost(seconds)
 	Labelmanager.animatebonuslabel.emit()
-	# "pause" game
-	# open door 
+	Labelmanager.seconds = 0
+	Labelmanager.minutes = 0
+
 
 
 func new_wave():
+	Labelmanager.animatewave.emit()
 	Labelmanager.stopped_wave = false
 	Labelmanager.wavestart.emit()
 	Labelmanager.wave += 1
-	Labelmanager.wave_intensity += wave * 1.8
+	Labelmanager.wave_intensity += wave * 2
 	Labelmanager.wave_intensity_copy = Labelmanager.wave_intensity
-	Labelmanager.animatewave.emit()
 	print ("New wave function is being called, wave is ", Labelmanager.wave)
 	
 
@@ -102,24 +104,40 @@ func display_damage(value, position: Vector2):
 
 
 func _on_secondtimer_timeout() -> void:
-	Labelmanager.seconds += 1
+	if Labelmanager.stopped_wave == false:
+		Labelmanager.seconds += 1
+
 
 
 func _on_totaltimer_timeout() -> void:
 	Labelmanager.totalseconds += 1
-
+	manage_time()
+	
 	if Labelmanager.enemies_alive <= 0 and Labelmanager.seconds >= 8 and Labelmanager.wave_intensity_copy <= 0 and not Labelmanager.stopped_wave:
 		stop_wave()
 
 
 func calculate_drive_boost(_seconds):
-	total_points = 100
-	var effective_points = total_points - Labelmanager.seconds
+	# Calculates the bonus drive, total starting points:
+	Labelmanager.total_points = 100
+	# effective points are equal to the total minus the seconds passed
+	var effective_points = Labelmanager.total_points - Labelmanager.seconds
+
+	# if the effective points and seconds arent zero, divide them to get the drivebonus
 	if effective_points != 0 and Labelmanager.seconds != 0:
 		Labelmanager.drivebonus = effective_points / Labelmanager.seconds
 	else:
-		Labelmanager.drivebonus = 67
-	if Labelmanager.drivebonus < 0:
 		Labelmanager.drivebonus = 0
-	total_points += 10
-	print("drive bonus calculated")
+
+# if the driebonus is minus zero someway or one minute has passed, make the drive 0
+	if Labelmanager.drivebonus < 0 or Labelmanager.minutes > 0:
+		Labelmanager.drivebonus = 0
+
+	# add some total points to give a bit more time each wave to the player
+	Labelmanager.total_points += 10
+	print("drive bonus calculated, total points:", Labelmanager.total_points, " seconds: ", Labelmanager.seconds  )
+
+
+	# formula would be like TP - SEC
+	#                       -------
+	#                         SEC

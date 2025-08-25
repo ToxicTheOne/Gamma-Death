@@ -56,7 +56,7 @@ func spawn():
 
 
 func _on_timer_timeout() -> void:
-	var chance = randi_range(1,2)
+	var _chance = randi_range(1,2)
 	#if chance == 1:
 		#spawn()
 	#else:
